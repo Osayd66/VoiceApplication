@@ -1,0 +1,31 @@
+<vxml version="2.1">
+<var name="callerID" expr="session.callerid"/>
+<form>
+<block>
+<if cond="callerID== '31683947615'">
+<goto next="#langmenu"/>
+<elseif cond="callerID== '31641157016'"/>
+<goto next="#langmenu"/>
+<elseif cond="callerID== '31623697899'"/>
+<goto next="#langmenu"/>
+<else/>
+<goto next="http://webhosting.voxeo.net/208129/www/yesVotes.xml"/>
+</if>
+</block>
+</form>
+<menu id="langmenu" dtmf="true">
+<prompt> Press 1 for English, Press 2 for French</prompt>
+<choice next="#formEN"/>
+<choice next="#formFR"/>
+</menu>
+<form id="formEN">
+<block>
+<goto next="http://webhosting.voxeo.net/208129/www/end_start_voting.xml"/>
+</block>
+</form>
+<form id="formFR">
+<block>
+<goto next="http://webhosting.voxeo.net/208129/www/end_start_voting_french.xml"/>
+</block>
+</form>
+</vxml>

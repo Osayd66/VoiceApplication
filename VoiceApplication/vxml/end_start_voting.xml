@@ -1,0 +1,48 @@
+<vxml version="2.1">
+<var name="status" expr="'O'"/>
+<var name="status1" expr="'C'"/>
+<form id="login">
+<block>
+<prompt> Welcome! </prompt>
+</block>
+<field name="pin" type="digits">
+<prompt> Please type in your four digit PIN code</prompt>
+</field>
+<block>
+<if cond="pin== '8542'">
+<prompt> Okay thanks. </prompt>
+<goto next="#menu1"/>
+<else/>
+<prompt> Wrong pin </prompt>
+<goto next="#login"/>
+</if>
+</block>
+</form>
+<menu id="menu1" dtmf="true">
+<prompt> Would you like open a new voting question or end a voting question? Select 1 to open a new voting question, Select 2 to end the voting question</prompt>
+<choice next="#menuOpen"/>
+<choice next="#menu4"/>
+</menu>
+<menu id="menuOpen" dtmf="true">
+<prompt> Please be aware that if you open a new voting question while a voting question is still open, the previous voting question will be closed. Select 1 to confirm opening a new voting question, select 2 to go back.</prompt>
+<choice next="#form3"/>
+<choice next="#menu1"/>
+</menu>
+<form id="form3">
+<block>
+<prompt>New voting question opened! Thank you for opening a new voting question! This program will now end </prompt>
+<data src="http://group2.saadittoh.com/openVoting.php" namelist="status" method="post"/>
+</block>
+</form>
+<menu id="menu4" dtmf="true">
+<prompt> Select 1 to confirm ending the voting question, Select 2 to go back</prompt>
+<choice next="#form4"/>
+<choice next="#menu1"/>
+</menu>
+<form id="form4">
+<block>
+<prompt>The voting question has now been closed! Thank you for ending the voting question! This program will now end </prompt>
+<data src="http://group2.saadittoh.com/endVoting.php" namelist="status1" method="post"/>
+</block>
+</form>
+</vxml>

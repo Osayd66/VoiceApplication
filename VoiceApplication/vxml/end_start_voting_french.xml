@@ -1,0 +1,69 @@
+<vxml version="2.1">
+<var name="status" expr="'O'"/>
+<var name="status1" expr="'C'"/>
+<form id="login">
+<block>
+<prompt>
+<audio src="https://group2.saadittoh.com/VoiceApp_Voice%20samples%20french_WAV_1_Welcome.wav"/>
+</prompt>
+</block>
+<field name="pin" type="digits">
+<prompt>
+<audio src="https://group2.saadittoh.com/VoiceApp_Voice%20samples%20french_WAV_2_Please enter your 4 digit pin.wav"/>
+</prompt>
+</field>
+<block>
+<if cond="pin== '8542'">
+<prompt>
+<audio src="https://group2.saadittoh.com/VoiceApp_Voice%20samples%20french_WAV_3_Okey thanks.wav"/>
+</prompt>
+<goto next="#menu1"/>
+<else/>
+<prompt>
+<audio src="https://group2.saadittoh.com/VoiceApp_Voice%20samples%20french_WAV_4_Wrong pin.wav"/>
+</prompt>
+<goto next="#login"/>
+</if>
+</block>
+</form>
+<menu id="menu1" dtmf="true">
+<prompt>
+<audio src="https://group2.saadittoh.com/VoiceApp_Voice%20samples%20french_WAV_5_Would you like to start or stop a voting question.wav"/>
+</prompt>
+<choice next="#menuOpen"/>
+<choice next="#menu4"/>
+</menu>
+<menu id="menuOpen" dtmf="true">
+<prompt>
+<audio src="https://group2.saadittoh.com/VoiceApp_Voice%20samples%20french_WAV_14_please be aware if you open a voting question while one is open.wav"/>
+</prompt>
+<choice next="#form3"/>
+<choice next="#menu1"/>
+</menu>
+<form id="form3">
+<block>
+<prompt>
+<audio src="https://group2.saadittoh.com/VoiceApp_Voice%20samples%20french_WAV_6_New voting question opened.wav"/>
+</prompt>
+<data src="http://group2.saadittoh.com/openVoting.php" namelist="status" method="post"/>
+</block>
+</form>
+<menu id="menu4" dtmf="true">
+<prompt>
+<audio src="https://group2.saadittoh.com/VoiceApp_Voice%20samples%20french_WAV_7_Select.wav"/>
+</prompt>
+<choice next="#form4"/>
+<choice next="#menu1"/>
+</menu>
+<form id="form4">
+<block>
+<prompt>
+<audio src="https://group2.saadittoh.com/VoiceApp_Voice%20samples%20french_WAV_8_The voting question has now been closed.wav"/>
+</prompt>
+<prompt>
+<audio src="https://group2.saadittoh.com/VoiceApp_Voice%20samples%20french_WAV_13_This program will end now.wav"/>
+</prompt>
+<data src="http://group2.saadittoh.com/endVoting.php" namelist="status1" method="post"/>
+</block>
+</form>
+</vxml>
